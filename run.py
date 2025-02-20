@@ -10,8 +10,10 @@ def main(file):
     for track in root.iter("TRACK"):
         tempos = track.findall("TEMPO")
         if len(tempos) > 1:
-            name = track.get("Name")
-            tracks.append(name)
+            bpms = {float(tempo.get("Bpm", "0")) for tempo in tempos}
+            if len(bpms) > 1:
+                name = track.get("Name")
+                tracks.append(name)
 
     for name in tracks:
         print(name)
